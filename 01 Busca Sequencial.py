@@ -1,13 +1,19 @@
 # Algoritmo de busca sequencial
 #
 # == ("""        """) <- Docstring usada para documentar funções
-#
+
 # Dada uma lista e um valor de busca, percorre a lista
 # verificando se cada elemento da lista corresponde ao valor de busca.
 # A busca para quando o valor é encontrado ou a lista é totalmente percorrida,
 # sem encontrar o valor de busca.
 
+# Número de comparações em uma lista de n elementos
+# Quando um elemento existe: pos + 1 comparações
+# Quando o elemento não existe: n  comparações
+
+
 from data.lista_nomes import nomes
+from time import time
 
 def busca_sequencial(lista, valorBusca):
     """
@@ -110,11 +116,21 @@ print("\n-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-\n")
 
 busca = "Orkutilson"
 
-print(f"Posição de FAUSTO: {busca_sequencial(nomes, 'FAUSTO')}")
-print(f"Posição de ZULEICA: {busca_sequencial(nomes, 'ZULEICA')}")
 print(f"Posição de {busca.upper()}: {busca_sequencial(nomes, busca.upper())}") # Pega o nome e transforma todo em MAISCULAS para melhor pesquisa
 
+hora_ini = time()
+print(f"Posição de FAUSTO: {busca_sequencial(nomes, 'FAUSTO')}")
+hora_fim = time()
+print(f"Tempo gasto procurando FAUSTO: {(hora_fim - hora_ini) * 1000}ms")
 
+hora_ini = time()
+print(f"Posição de ZULEICA: {busca_sequencial(nomes, 'ZULEICA')}")
+hora_fim = time()
+print(f"Tempo gasto procurando ZULEICA: {(hora_fim - hora_ini) * 1000}ms")
 
+hora_ini = time()
+print(f"Posição de LUNISVALDO: {busca_sequencial(nomes, 'LUNISVALDO')}")
+hora_fim = time()
+print(f"Tempo gasto procurando LUNISVALDO: {(hora_fim - hora_ini) * 1000}ms")
 
 
