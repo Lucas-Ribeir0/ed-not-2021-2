@@ -11,6 +11,7 @@ passadas = 0
 trocas = 0
 
 from time import time
+import tracemalloc
 
 def SelectionSort(lista):
     """
@@ -62,19 +63,29 @@ nums = [0, 11, 22, 33, 44, 55, 66, 77,  88, 99]
 
 
 
-ini = time()
-SelectionSort(nums)
-fim = time()
+# ini = time()
+# SelectionSort(nums)
+# fim = time()
 
 
-print(f"A quantidade de trocas foi de: {trocas} \nA quantidade de passadas foi: {passadas} \nA quantidade de comparações foi de: {comps}\nO tempo necessário para a função foi de: {(fim - ini) * 1000}ms")
+# print(f"A quantidade de trocas foi de: {trocas} \nA quantidade de passadas foi: {passadas} \nA quantidade de comparações foi de: {comps}\nO tempo necessário para a função foi de: {(fim - ini) * 1000}ms")
 
 from data.nomes_desord import nomes
 
 nomesParcial = nomes[:30000]
+
+
 ini = time()
+tracemalloc.start()
+
 SelectionSort(nomes)
+
+mem_atual, mem_pico = tracemalloc.get_traced_memory()
+
 fim = time()
 
-
+print(nomes)
 print(f"A quantidade de trocas foi de: {trocas} \nA quantidade de passadas foi: {passadas} \nA quantidade de comparações foi de: {comps}\nO tempo necessário para a função foi de: {(fim - ini)}s\n")
+print(f"Pico de memóri: {mem_pico / 1024 / 1024}MB")
+
+tracemalloc.stop()

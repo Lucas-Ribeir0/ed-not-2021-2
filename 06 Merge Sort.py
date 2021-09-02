@@ -4,10 +4,20 @@
 # contendo N elementos até obter N vetores de apenas um elemento cada  um.
 # Em seguida, usando a técnica de mesclagem (merge), "remota" o vetor, dessa vez com os elementos já em ordem.
 
+comps = 0
+divisoes = 0
+juncoes = 0
+
 def mergeSort(lista):
     """
     Função que implementa o algoritmo merge sort usando o metódo Recursivo.
     """
+
+    # Não podemos zerar as variáveis globais de estatísticas dentro da
+    # função porque ela é recursiva e resetaria a contagem a cada chamada
+
+    global comps, divisoes, juncoes
+
 
     # print(f"Lista recebida: {lista}")
     
@@ -21,6 +31,8 @@ def mergeSort(lista):
 
     # Gera cópia da segunda metade da lista
     lista_dir = lista[meio:] # Do meio ao fim
+
+    divisoes += 1
 
     # Chamamos recursivamente a função para continuar
     # repartindo a lista em metades
@@ -47,7 +59,7 @@ def mergeSort(lista):
         else:
             ordenada.append(lista_dir[pos_dir])
             pos_dir += 1
-            
+        comps += 1
     sobra = None # A sobra da lista que ficou para trás
 
     if(pos_esq < pos_dir): # Houve sobra da lista esquerda
@@ -58,8 +70,12 @@ def mergeSort(lista):
     # print(f">>>> Final ordenada: {ordenada + sobra}")
 
     # Retornamos a lista final ordenada, composta da ordenada + sobra
+    juncoes += 1
     return ordenada + sobra         # "Soma" de duas listas
 
+comps = 0
+divisoes = 0
+juncoes = 0
 
 from data.nomes_desord import nomes
 from time import time
@@ -77,7 +93,8 @@ mem_atual, mem_pico = tracemalloc.get_traced_memory()
 fim = time()
 
 print(nomes_ord)
-print(f"O tempo gasto foi: {fim - ini}")
+print(f"A quantidade de Junções foram de: {juncoes} \nA quantidade de divisões foi: {divisoes} \nA quantidade de comparações foi de: {comps}\nO tempo necessário para a função foi de: {(fim - ini)}s\n")
+
 print(f"Pico de memória: {mem_pico / 1024 / 1024} MB")
 
 tracemalloc.stop() # Finaliza a medição de memória
