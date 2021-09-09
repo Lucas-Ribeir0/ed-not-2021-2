@@ -93,4 +93,4 @@ print(f"O tempo usado foi de {fim - ini}s \nA qtd de passadas, trocas e compara√
 print(f"O uso de mem√≥ria foi de {mem_pico / 1024 /1024 }MB")
 
 tracemalloc.stop
-print('The CPU usage is: ', psutil.cpu_percent(4))
+print('The CPU usage is: ', psutil.cpu_percent(4))  
