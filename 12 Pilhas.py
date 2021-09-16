@@ -21,10 +21,10 @@ print(pilha)
 inverso = ""
 
 # Remoção de elementos em posições que não são a final
-del pilha[11] # Remove a posição 11
-del pilha[21] # Remove a posição 21
-del pilha[8] # Remove a posição 8
-del pilha[25] # Remove a posição 25
+# del pilha[11] # Remove a posição 11
+# del pilha[21] # Remove a posição 21
+# del pilha[8] # Remove a posição 8
+# del pilha[25] # Remove a posição 25
 
 # Retira cada letra da lista, de trás pra frente, e coloca no inverso
 while len(pilha) > 0:
