@@ -82,13 +82,13 @@ from data.nomes_desord import nomes
 ini = time()
 tracemalloc.start()
 
-QuickSort(nomes)
+QuickSort(nums)
 
 mem_atual, mem_pico = tracemalloc.get_traced_memory()
 
 fim = time()
 
-print(nomes)
+print(nums)
 print(f"O tempo usado foi de {fim - ini}s \nA qtd de passadas, trocas e comparações foram de {passadas, trocas, comps}")
 print(f"O uso de memória foi de {mem_pico / 1024 /1024 }MB")
 

@@ -10,13 +10,13 @@ simbolos = {
     "X": "chave" 
 }
 
-# expressao = "2 * 4 - {7 / [5 - (7 * 9) + 1] * 3} / 5"
+expressao = "2 * 4 - {7 / [5 - (7 * 9) + 1] * 3} / 5"
 
 # expressao = "2 * 4 - {7 / [5 - (7 * 9) + 1} * 3] / 5"
 
 # expressao = "2 * 4 - {7 / [5 - (7 * 9) + 1]] * 3} / 5"
 
-expressao = "2 * {4 - {7 / [(5 - (7 * 9) + 1] * 3} / 5"
+# expressao = "2 * {4 - {7 / [(5 - (7 * 9) + 1] * 3} / 5"
 
 analisador = Stack() # Cria a pilha
 
