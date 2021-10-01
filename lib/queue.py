@@ -1,6 +1,6 @@
 class Queue:
     """
-        Estruturas de dados fil
+        Estruturas de dados FILA
         - Fila é uma lista linear de acesso restrito, que permite apenas as operações
         de enfileramento (enqueue) e desenfileiramento (dequeue), a primeira ocorrendo no final da estrutura e
         a segunda no inicio da estrutura
@@ -44,7 +44,7 @@ class Queue:
         if self.is_empty(): return None
         return self.__data[0]
     
-        """
+    """
         Método para verificar se a pilha está vazia ou não
         Retorna True se vazia ou False caso contrário
     """
@@ -62,28 +62,4 @@ class Queue:
         return "[ " + string + " ]"
 
 ###############################################
-
-fila = Queue() # Cria uma nova fila
-print(fila.to_str())
-
-# Adicionando pessoas à fila
-fila.enqueue("Marciovaldo")
-fila.enqueue("Gildanete")
-fila.enqueue("Terencionildo")
-fila.enqueue("Junisler")
-fila.enqueue("Ritileina")
-
-print(fila.to_str())
-
-atendido = fila.dequeue()
-print(fila.to_str())
-
-atendido = fila.dequeue()
-print(f"Atendido: {atendido}")
-print(fila.to_str())
-
-fila.enqueue("Adenoirton")
-print(fila.to_str())
-
-proximo = fila.peek()
-print(f"Próximo a ser atendido: {proximo}")
+    
