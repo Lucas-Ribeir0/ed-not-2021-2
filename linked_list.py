@@ -60,19 +60,70 @@ class LinkedList:
         else:
             before = self.__head
 
-            # Percorre a lista encadeada até a posição ANTERIOR aquela de inserção
-            for i in range(0, pos):
-                print(f"before.data: {before.data}, i: {i}")
+            # Percorre a lista encadeada até a posição (pos. 1) ANTERIOR aquela de inserção
+            for i in range(1, pos):
                 before = before.next
 
+            # Nodo que ficará depois do inserido
+            after = before.next
 
+            # O next do nodo inserido passa a ser o after
+            inserted.next = after
+
+            # O next do nodo before passa a ser o inserted
+            before.next = inserted
 
         self.__count += 1
 
-        # print(f"[NODE] data: {inserted.data}, next: {inserted.next}")
+    """
+        Método de atalho para inserção na primeira posição
+    """
+    def insertFront(self, val):
+        self.insert(0, val)
 
+    """
+        Método de atalho para inserção na primeira posição
+    """
+    def insertBack(self, val):
+        self.insert(self.__count, val)
 
-#############################
+    """
+        Método que exibe a pilha como uma string (para fins de depuração)
+    """
+    def to_str(self):
+        string = ""
+        node = self.__head
+        for i in range(0, self.__count):
+            if string != "": string += ", "
+            string += f"(pos: {i}, data: {node.data})"
+            node = node.next
+        return "[ " + string + f" ], count: {self.__count}"
+
+    """ 
+        Retorna o campo data do nodo da posição especificada
+    """
+    def peek(self, pos):
+        # Quando a lista estiver vazia ou a posição estiver fora dos limites válidos (0..count - 1), retorna None
+        if self.is_empty() or pos < 0 or pos > self.__count - 1:
+            return None
+
+        node = self.__head
+        for i in range(0, pos): node = node.next
+        return node.data
+    
+    """
+        Método para procurar um valor na lista e retornar sua posição.
+        Retorna -1 caso não encontre.
+    """
+    def index(self, val):
+        node = self.__head    
+        for pos in range(0, self.__count):
+            if node.data == val: return pos
+            node = node.next
+        return -1   # Não encontrou
+
+####################################################################################################
+
 lista = LinkedList()
 
 lista.insert(0, "1 kg batata")
@@ -83,3 +134,22 @@ lista.insert(4, "sabonete")
 lista.insert(5, "shampoo")
 
 lista.insert(4, "tomate")
+
+lista.insert(7, "sabão em pó")
+lista.insert(30, "água sanitária")
+
+
+
+print(lista.to_str())
+
+lista.insertFront("5 kg arroz")
+lista.insertBack("água sanitária")
+
+print(lista.to_str())
+
+print(f"Info do nodo da posição 7: {lista.peek(7)}")
+print(f"Info do nodo da posição 13: {lista.peek(13)}")
+
+print(f"Posição de tomate: {lista.index('tomate')}")
+print(f"Posição de café: {lista.index('café')}")
+print(f"Posição de cebola: {lista.index('cebola')}")
