@@ -121,35 +121,63 @@ class LinkedList:
             if node.data == val: return pos
             node = node.next
         return -1   # Não encontrou
+    """
+        Metódo para remover um elemento da lista
+    """
+    def remove(self, pos):
+        # 1º Caso: lista vazia ou posição fora dos limites
+        # (menor que 0 ou maior que count -1)
+        if self.__count == 0 or pos < 0 or pos > self.__count - 1:
+            return None
+
+        # 2º Caso: remoção do início da lista
+        if pos == 0:
+            removed = self.__head   # Nodo Removido
+            self.__head = self.__head.next      # Passa a apontar para o nodo seguinte
+
+            # Retorna o valor armazenado no nodo removido
+            return removed.data
+        # 3º Caso: remoções intermediárias ou finais
+        else: 
+            # Percorre a lista até encontrar o item anterior
+            # à posição de remoção (before)
+            before = self.__head
+            for i in range(1, pos): before = before.next
+
+            # O removido será o sucessor do before
+            removed = before.next
+
+            # Nodo da posição seguinte à de remoção (next)
+            after = removed.next
+
+            # O nodo anterior (before) passa a apontar para o 
+            # nodo seguinte (after)
+            before.next = after
+
+            # Atualizando o __tail no caso da rmeoção do último nodo
+            if removed == self.__tail:
+                self.__tail = before
+                # print(f"Valor do __tail: {self.__tail.data}")
+
+        self.__count -= 1
+        # Retorna o valor armazenado no nodo removido
+        return removed.data
+    """
+        Método que retorna a quantidade de itens da lista
+    """
+    def count(self):
+        return self.__count
+
+    """
+        Metódo para remover o primeiro item da lista
+    """
+    def removeHead(self):
+        return self.remove(0)
+
+    """
+        Metódo para remover o último item da lista
+    """
+    def removeTail(self):
+        return self.remove(self.__count - 1)
 
 ####################################################################################################
-
-lista = LinkedList()
-
-lista.insert(0, "1 kg batata")
-lista.insert(1, "café")
-lista.insert(2, "miojo")
-lista.insert(3, "óleo")
-lista.insert(4, "sabonete")
-lista.insert(5, "shampoo")
-
-lista.insert(4, "tomate")
-
-lista.insert(7, "sabão em pó")
-lista.insert(30, "água sanitária")
-
-
-
-print(lista.to_str())
-
-lista.insertFront("5 kg arroz")
-lista.insertBack("água sanitária")
-
-print(lista.to_str())
-
-print(f"Info do nodo da posição 7: {lista.peek(7)}")
-print(f"Info do nodo da posição 13: {lista.peek(13)}")
-
-print(f"Posição de tomate: {lista.index('tomate')}")
-print(f"Posição de café: {lista.index('café')}")
-print(f"Posição de cebola: {lista.index('cebola')}")
