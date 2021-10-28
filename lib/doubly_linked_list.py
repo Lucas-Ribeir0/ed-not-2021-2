@@ -25,6 +25,8 @@ class Node:
 
 
 class DoublyLinkedList:
+    import math
+
     """
         Construtor de classe
     """
@@ -38,6 +40,13 @@ class DoublyLinkedList:
     """
     def is_empty(self):
         return self.__count == 0
+
+    """
+        Método que retorna a quantidade de itens da lista
+    """
+    def count(self):
+        return self.__count     
+
 
     """
         Método PRIVADO que encontra o nodo, dada a sua posição
@@ -55,6 +64,28 @@ class DoublyLinkedList:
             for i in range(self.__count -2, pos - 1, -1): node = node.prev 
 
         return node
+
+    """ 
+        Método que encontra a posição de um nodo dado o seu valor
+    """
+    def index(self, pos):
+        # Encontra a posição do meio da lista. Se o resultado for 
+        # fracionário, considera o próximo número inteiro.
+        meio = math.ceil(self.count / 2)
+
+        # Inicializa dos nodos, um com a cabeça e outro com a cauda
+        # da lista
+        node1 = self.__head
+        node2 = self.__tail
+
+        # Contador que vai até a metade da lista 
+        for pos in range(0, meio + 1):
+            if(node1.data == val): return pos # Retorna a posição encontrada
+            if(node2.data == val): return self.__count - 1 - pos # Retorna posição retroativa
+            node1 = node1.next # node1 anda para frente
+            node2 = node2.prev # node1 anda para trás
+
+        return -1 # Não encontrou o valor da lista 
 
 
     """
@@ -96,6 +127,98 @@ class DoublyLinkedList:
         self.__count += 1
 
     """
+        Método de atalho para inserção no inicio da lista
+    """
+    def insert_head(self, val):
+        self.insert(0, val)
+
+    """
+        Método de atalho para inserção no final da lista
+    """
+    def insert_tail(self, val):
+        self.insert(self.__count, val)
+
+    """
+        Método para remoção em qualquer posição
+    """
+    def remove(self, pos):
+        # 1º Caso: lista vazia ou posição fora dos limites
+        if self.is_empty() or pos < 0 or pos > self.__count - 1: 
+            return None
+
+        # 2º Caso: remoção no inicio da lista
+        if pos == 0:
+            # Séra removido o __head da lista
+            removed = self.__head
+            # O novo __head passa a ser o nodo seguinte ao removido
+            self.__head = removed.next
+            # Se __head for um nodo válido, ele não pode ter antecessor (prev)
+            if self.__head is not None: self.__head.prev = None 
+            # Em caso de remoção do único nodo restante, __head é None, e __tail precisa ser None também
+            if self.__count == 1: self.__tail = None
+
+        # 3º Caso: remoção do último nodo
+        elif pos == self.__count - 1:
+            # Será removido o __tail da lista
+            removed = self.__tail
+            # O novo __tail passa a ser o nodo anterior ao removido
+            self.__tail = removed.prev
+            # Se __tail for um nodo valido, não pode ter um sucessor (next)
+            if self.__tail is not None: self.__tail.next = None
+            # Em caso de remoção do único nodo restante, __tail é None, e __head precisa ser None também.
+            if self.__count == 1: self.__head = None
+
+        # 4º Caso: remoção de posição intermediária
+        else:
+            # Manda encontrar o nodo a ser removido
+            removed = self.__find_node(pos)
+            before = removed.prev   # Nodo anterior ao removido
+            after = removed.next    # Nodo posterior ao removido
+            # O nodo before passa a apontar à frente para o nodo after
+            before.next = after
+            # O nodo after começa a apontar para trás para o nodo before
+            after.prev = before
+
+        self.__count -= 1
+
+        return removed.data
+
+        """
+            Método de atalho para remoção na primeira posição
+        """
+        def remove_head(self):
+            return self.remove(0)
+
+        """
+            Método de atalho para remoção na última posição
+        """
+        def remove_tail(self):
+            return self.remove(self.__count - 1)
+
+        """
+            Método para consultar qualquer nodo, dada a sua posição 
+        """
+        def peek(self, pos):
+            # Lista vazia ou posição fora ods limites
+            if self.is_empty() or pos < 0 or pos > self.__count - 1: return None
+
+            node = self.__find_node(pos)
+
+            return node.data
+
+        """
+            Método de atalho para consultar o primeiro nodo
+        """
+        def peek_head(self):
+            return self.peek(0)
+
+        """
+            Método de atalho para consultar o último nodo
+        """
+        def peek_tail(self):
+            return self.peek(self.__count - 1)
+
+    """
         Método que exibe a pilha como uma string (para fins de depuração)
     """
     def to_str(self):
@@ -122,6 +245,12 @@ lista.insert(0, 'Chevette')
 lista.insert(3, 'Maverick')
 
 # Inserção no final da lista
+lista.insert(3, 'Passat')
+
+# Inserção no final da lista
+lista.insert(3, 'Voyage')
+
+# Inserção no final da lista
 lista.insert(4, 'Opala')
 
 # Inserção no final da lista
@@ -130,4 +259,24 @@ lista.insert(5, 'Del Rey')
 # Inserção em posição intermediária
 lista.insert(1, 'Gol')
 
+print(lista.to_str())
+
+# Remoção do primeiro nodo
+removido = lista.remove(0)
+print(f"Removido primeira posição: {removido}")
+print(lista.to_str())
+
+# Remoção do primeiro nodo
+removido = lista.remove(lista.count() - 1)
+print(f"Removido última posição: {removido}")
+print(lista.to_str())
+
+# Remoção da posição intermediária
+removido = lista.remove(2)
+print(f"Removido da posição 2: {removido}")
+print(lista.to_str())
+
+# Consulta o último nodo
+ultimo = lista.peek_tail()
+print(f"Último nodo consultado: {ultimo}")
 print(lista.to_str())
