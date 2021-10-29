@@ -24,8 +24,8 @@ class Node:
 """
 
 
+import math
 class DoublyLinkedList:
-    import math
 
     """
         Construtor de classe
@@ -68,10 +68,10 @@ class DoublyLinkedList:
     """ 
         Método que encontra a posição de um nodo dado o seu valor
     """
-    def index(self, pos):
+    def index(self, val):
         # Encontra a posição do meio da lista. Se o resultado for 
         # fracionário, considera o próximo número inteiro.
-        meio = math.ceil(self.count / 2)
+        meio = math.ceil(self.__count / 2)
 
         # Inicializa dos nodos, um com a cabeça e outro com a cauda
         # da lista
@@ -79,7 +79,8 @@ class DoublyLinkedList:
         node2 = self.__tail
 
         # Contador que vai até a metade da lista 
-        for pos in range(0, meio + 1):
+        for pos in range(0, meio):
+            print(f'>> Pos: {pos}, node1: {node1.data}, node2: {node2.data}')
             if(node1.data == val): return pos # Retorna a posição encontrada
             if(node2.data == val): return self.__count - 1 - pos # Retorna posição retroativa
             node1 = node1.next # node1 anda para frente
@@ -183,40 +184,39 @@ class DoublyLinkedList:
 
         return removed.data
 
-        """
-            Método de atalho para remoção na primeira posição
-        """
-        def remove_head(self):
-            return self.remove(0)
+    """
+        Método de atalho para remoção na primeira posição
+    """
+    def remove_head(self):
+        return self.remove(0)
 
-        """
-            Método de atalho para remoção na última posição
-        """
-        def remove_tail(self):
-            return self.remove(self.__count - 1)
+    """
+        Método de atalho para remoção na última posição
+    """
+    def remove_tail(self):
+        return self.remove(self.__count - 1)
 
-        """
-            Método para consultar qualquer nodo, dada a sua posição 
-        """
-        def peek(self, pos):
-            # Lista vazia ou posição fora ods limites
-            if self.is_empty() or pos < 0 or pos > self.__count - 1: return None
+    """
+        Método para consultar qualquer nodo, dada a sua posição 
+    """
+    def peek(self, pos):
+        # Lista vazia ou posição fora ods limites
+        if self.is_empty() or pos < 0 or pos > self.__count - 1: return None
 
-            node = self.__find_node(pos)
-
-            return node.data
+        node = self.__find_node(pos)
+        return node.data
 
         """
             Método de atalho para consultar o primeiro nodo
         """
-        def peek_head(self):
-            return self.peek(0)
+    def peek_head(self):
+        return self.peek(0)
 
         """
             Método de atalho para consultar o último nodo
         """
-        def peek_tail(self):
-            return self.peek(self.__count - 1)
+    def peek_tail(self):
+       return self.peek(self.__count - 1)
 
     """
         Método que exibe a pilha como uma string (para fins de depuração)
@@ -232,51 +232,3 @@ class DoublyLinkedList:
 
 ###############################################################
 
-lista = DoublyLinkedList()
-print(lista.to_str())
-
-# Inserção em lista vazia
-lista.insert(0, 'Fusca')
-
-# Inserção no inicio da lista
-lista.insert(0, 'Chevette')
-
-# Inserção no final da lista
-lista.insert(3, 'Maverick')
-
-# Inserção no final da lista
-lista.insert(3, 'Passat')
-
-# Inserção no final da lista
-lista.insert(3, 'Voyage')
-
-# Inserção no final da lista
-lista.insert(4, 'Opala')
-
-# Inserção no final da lista
-lista.insert(5, 'Del Rey')
-
-# Inserção em posição intermediária
-lista.insert(1, 'Gol')
-
-print(lista.to_str())
-
-# Remoção do primeiro nodo
-removido = lista.remove(0)
-print(f"Removido primeira posição: {removido}")
-print(lista.to_str())
-
-# Remoção do primeiro nodo
-removido = lista.remove(lista.count() - 1)
-print(f"Removido última posição: {removido}")
-print(lista.to_str())
-
-# Remoção da posição intermediária
-removido = lista.remove(2)
-print(f"Removido da posição 2: {removido}")
-print(lista.to_str())
-
-# Consulta o último nodo
-ultimo = lista.peek_tail()
-print(f"Último nodo consultado: {ultimo}")
-print(lista.to_str())
