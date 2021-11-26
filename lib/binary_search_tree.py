@@ -209,15 +209,15 @@ class BinarySearchTree:
 
         # 2º caso: o valor a ser removido é MENOR que o valor da raiz
         # Continua procurando pelo nodo a ser removido pelo lado ESQUERDO
+        if val > root.data:
+            root.right = self.__remove_node(root.right, val)
+            return root
         if val < root.data: 
             root.left = self.__remove_node(root.left, val)
             return root
 
         # 3º caso: o valor a ser removido é MAIOR que o valor da raiz
         # Continua procurando pelo nodo a ser removido pelo lado DIREITO
-        if val > root.data:
-            root.right = self.__remove_node(root.right, val)
-            return root
 
         # 4º caso: o valor a ser removido é IGUAL ao valor da raiz
         # O nodo a ser removido foi encontrado; agora é necessário

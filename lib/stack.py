@@ -28,7 +28,7 @@ class Stack:
     """
     def pop(self):
         if self.is_empty(): return None
-        else: return self.__data.pop()
+        return self.__data.pop()
 
     """
         Método para consultar o topo da pilha (último elemento), sem retirá-lo
@@ -56,4 +56,3 @@ class Stack:
         return "[ " + string + " ]"
 
 #########################################################################
-
